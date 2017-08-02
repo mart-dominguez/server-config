@@ -1,0 +1,11 @@
+git clone https://github.com/jmhardison/docker-moodle
+cd docker-moodle
+docker build -t moodle .
+
+
+
+
+docker run -d --name MyDB --net red1 --ip 172.18.0.2 -p 3306:3306 -e MYSQL_DATABASE=moodle -e MYSQL_ROOT_PASSWORD=moodle -e MYSQL_USER=moodle -e MYSQL_PASSWORD=moodle mysql
+
+
+docker run -d -P --name moodle  --net red1 --ip 172.18.0.3 --link MyDB:DB -e MOODLE_URL=http://localhost:8080 -p 8080:80 jhardison/moodle
